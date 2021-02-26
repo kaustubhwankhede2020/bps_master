@@ -1,0 +1,42 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Delete Machines</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Delete Machine : {{ machines.machine_number }}</h5>
+                <hr>
+                <form method="POST" action="{% url 'delete_machines' %}">
+                    {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="machine_id" class="form-label">Machine ID</label>
+                        <input type="text" class="form-control" id="machine_id" name="machine_id" value="{{ machines.main_id }}" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="machine_number" class="form-label">Machine Number</label>
+                        <input type="text" class="form-control" id="machine_number" name="machine_number" value="{{ machines.machine_number }}" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="machine_description" class="form-label">Machine Description</label>
+                        <input type="text" class="form-control" id="machine_description" name="machine_description" value="{{ machines.machine_description }}" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="operation_id" class="form-label">Operation</label>
+                        <input type="text" class="form-control" id="operation_id" name="operation_id" value="{{ machines.operation_id }}" required readonly>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-danger">Delete Machine</button>
+                    <a href="{% url 'machines' %}" style="text-decoration: none;">
+                        <button type="button" class="btn btn-success">Cancel</button>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

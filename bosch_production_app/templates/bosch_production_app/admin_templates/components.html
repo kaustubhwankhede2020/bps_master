@@ -1,0 +1,66 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Components</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Register Components</h5>
+                <hr>
+                <form method="POST" action="{% url 'register_components' %}">
+                    {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="component_type" class="form-label">Component Type</label>
+                        <input type="text" class="form-control" id="component_type" name="component_type" autofocus required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="component_lk_number" class="form-label">Component LK Number</label>
+                        <input type="text" class="form-control" id="component_lk_number" name="component_lk_number" required>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Register Component</button>
+                    <button type="reset" class="btn btn-secondary">Clear Entries</button>
+                </form>
+            </div>
+        </div>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Components at <strong>Bosch</strong></h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Component Type</th>
+                            <th scope="col">Component LK Number</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for component in components %}
+                        <tr>
+                            <th scope="row">{{ component.main_id }}</th>
+                            <td>{{ component.component_type }}</td>
+                            <td>{{ component.component_lk_number }}</td>
+                            <td>{{ component.created_at }}</td>
+                            <td>
+                                <a href="/edit_components/{{ component.main_id }}" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                </a>
+                                <a href="/delete_components/{{ component.main_id }}" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

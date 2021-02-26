@@ -1,0 +1,38 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Delete Departments</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Delete Department : {{ departments.department_name }}</h5>
+                <hr>
+                <form method="POST" action="{% url 'delete_departments' %}">
+                    {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="department_id" class="form-label">Department ID</label>
+                        <input type="text" class="form-control" id="department_id" name="department_id" value="{{ departments.main_id }}" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="department_name" class="form-label">Department Name</label>
+                        <input type="text" class="form-control" id="department_name" name="department_name" value="{{ departments.department_name }}" autofocus required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="department_desc" class="form-label">Department Description</label>
+                        <input type="text" class="form-control" id="department_desc" name="department_desc" value="{{ departments.department_desc }}" required readonly>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-danger">Delete Department</button>
+                    <a href="{% url 'departments' %}" style="text-decoration: none;">
+                        <button type="button" class="btn btn-success">Cancel</button>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

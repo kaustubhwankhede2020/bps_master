@@ -1,0 +1,35 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Edit Components</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Update Component : {{ components.component_type }}</h5>
+                <hr>
+                <form method="POST" action="{% url 'edit_components' %}">
+                    {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="component_id" class="form-label">Component ID</label>
+                        <input type="text" class="form-control" id="component_id" name="component_id" value="{{ components.main_id }}" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="component_type" class="form-label">Component Type</label>
+                        <input type="text" class="form-control" id="component_type" name="component_type" value="{{ components.component_type }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="component_lk_number" class="form-label">Component LK Number</label>
+                        <input type="text" class="form-control" id="component_lk_number" name="component_lk_number" value="{{ components.component_lk_number }}" required>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-warning">Update Component</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

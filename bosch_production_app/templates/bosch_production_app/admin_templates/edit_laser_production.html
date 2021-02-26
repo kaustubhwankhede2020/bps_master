@@ -1,0 +1,51 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Edit Laser Production</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Update Laser Production : {{ laser_production.machine_id }}</h5>
+                <hr>
+                <form method="POST" action="{% url 'edit_laser_production' %}">
+                    {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="main_id" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="main_id" name="main_id" value="{{ laser_production.main_id }}" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="employee_id" class="form-label">Employee Number</label>
+                        <input type="text" class="form-control" id="employee_id" name="employee_id" value="{{ laser_production.employee_id }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="shift_id" class="form-label">Shift Code</label>
+                        <input type="text" class="form-control" id="shift_id" name="shift_id" value="{{ laser_production.shift_id }}" required readonly readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="machine_id" class="form-label">Machine Number</label>
+                        <input type="text" class="form-control" id="machine_id" name="machine_id" value="{{ laser_production.machine_id }}" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="component_id" class="form-label">Component Type</label>
+                        <input type="text" class="form-control" id="component_id" name="component_id" value="{{ laser_production.component_id }}" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="component_lot_number" class="form-label">Component Lot Number</label>
+                        <input type="text" class="form-control" id="component_lot_number" name="component_lot_number" value="{{ laser_production.component_lot_number }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="component_quantity" class="form-label">Component Quantity</label>
+                        <input type="text" class="form-control" id="component_quantity" name="component_quantity" value="{{ laser_production.component_quantity }}" required>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-warning">Update Laser Production</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

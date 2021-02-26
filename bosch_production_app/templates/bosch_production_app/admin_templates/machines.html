@@ -1,0 +1,77 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Machines</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Register Machines</h5>
+                <hr>
+                <form method="POST" action="{% url 'register_machines' %}">
+                    {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="machine_number" class="form-label">Machine Number</label>
+                        <input type="text" class="form-control" id="machine_number" name="machine_number" autofocus required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="machine_description" class="form-label">Machine Description</label>
+                        <input type="text" class="form-control" id="machine_description" name="machine_description" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="operation_id" class="form-label">Operation</label>
+                        <select id="operation_id" class="form-control" name="operation_id" required>
+                            {% for operation in operations %}
+                            <option value="{{ operation.main_id }}">{{ operation.operation_name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Register Machine</button>
+                    <button type="reset" class="btn btn-secondary">Clear Entries</button>
+                </form>
+            </div>
+        </div>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Machines at <strong>Bosch</strong></h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Machine Number</th>
+                            <th scope="col">Machine Description</th>
+                            <th scope="col">Operation</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for machine in machines %}
+                        <tr>
+                            <th scope="row">{{ machine.main_id }}</th>
+                            <td>{{ machine.machine_number }}</td>
+                            <td>{{ machine.machine_description }}</td>
+                            <td>{{ machine.operation_id }}</td>
+                            <td>{{ machine.created_at }}</td>
+                            <td>
+                                <a href="/edit_machines/{{ machine.main_id }}" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                </a>
+                                <a href="/delete_machines/{{ machine.main_id }}" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

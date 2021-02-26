@@ -1,0 +1,66 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Shifts</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Register Shifts</h5>
+                <hr>
+                <form method="POST" action="{% url 'register_shifts' %}">
+                    {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="shift_code" class="form-label">Shift Code</label>
+                        <input type="text" class="form-control" id="shift_code" name="shift_code" autofocus required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="shift_name" class="form-label">Shift Name</label>
+                        <input type="text" class="form-control" id="shift_name" name="shift_name" required>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Register Shift</button>
+                    <button type="reset" class="btn btn-secondary">Clear Entries</button>
+                </form>
+            </div>
+        </div>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Shifts at <strong>Bosch</strong></h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Shift Code</th>
+                            <th scope="col">Shift Name</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for shift in shifts %}
+                        <tr>
+                            <th scope="row">{{ shift.main_id }}</th>
+                            <td>{{ shift.shift_code }}</td>
+                            <td>{{ shift.shift_name }}</td>
+                            <td>{{ shift.created_at }}</td>
+                            <td>
+                                <a href="/edit_shifts/{{ shift.main_id }}" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                </a>
+                                <a href="/delete_shifts/{{ shift.main_id }}" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

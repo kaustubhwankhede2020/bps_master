@@ -1,0 +1,31 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Edit Operations</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Update Operation : {{ operations.operation_name }}</h5>
+                <hr>
+                <form method="POST" action="{% url 'edit_operations' %}">
+                    {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="operation_id" class="form-label">Operation ID</label>
+                        <input type="text" class="form-control" id="operation_id" name="operation_id" value="{{ operations.main_id }}" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="operation_name" class="form-label">Operation Name</label>
+                        <input type="text" class="form-control" id="operation_name" name="operation_name" value="{{ operations.operation_name }}" required>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-warning">Update Operation</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

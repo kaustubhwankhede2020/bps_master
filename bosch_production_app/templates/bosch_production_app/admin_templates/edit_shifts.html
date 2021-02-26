@@ -1,0 +1,35 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Edit Shifts</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Update Shift : {{ shifts.shift_code }}</h5>
+                <hr>
+                <form method="POST" action="{% url 'edit_shifts' %}">
+                    {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="shift_id" class="form-label">Shift ID</label>
+                        <input type="text" class="form-control" id="shift_id" name="shift_id" value="{{ shifts.main_id }}" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="shift_code" class="form-label">Shift Code</label>
+                        <input type="text" class="form-control" id="shift_code" name="shift_code" value="{{ shifts.shift_code }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="shift_name" class="form-label">Shift Name</label>
+                        <input type="text" class="form-control" id="shift_name" name="shift_name" value="{{ shifts.shift_name }}" required>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-warning">Update Shift</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

@@ -1,0 +1,67 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Employees</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Register Employees</h5>
+                <hr>
+                <form method="POST" action="{% url 'register_employees' %}">
+                    {% csrf_token %} 
+                    {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% else %}
+                    <div class="alert alert-danger mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="firstname" class="form-label">Firstname</label>
+                        <input type="text" class="form-control" id="firstname" name="firstname" autofocus required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastname" class="form-label">Lastname</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" autofocus required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" autofocus required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" autofocus required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" autofocus required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mobile_no" class="form-label">Contact Number</label>
+                        <input type="text" class="form-control" id="mobile_no" name="mobile_no" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="department_id" class="form-label">Department</label>
+                        <select id="department_id" class="form-control" name="department_id" required>
+                            {% for department in departments %}
+                            <option value="{{ department.main_id }}">{{ department.department_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user_type" class="form-label">Role</label>
+                        <select id="user_type" class="form-control" name="user_type" required>
+                            <option value="manager">Manager</option>
+                            <option value="expert">Expert</option>
+                            <option value="operator">Operator</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Register Employee</button>
+                    <button type="reset" class="btn btn-secondary">Clear Entries</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

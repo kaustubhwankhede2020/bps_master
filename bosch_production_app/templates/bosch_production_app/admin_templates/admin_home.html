@@ -1,0 +1,76 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Home</li>
+        </ol>
+        <hr>
+        <h5>Updation</h5>
+        <div class="row mt-4">
+            <div class="col-sm-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Department Management</h5>
+                        <hr>
+                        <p class="card-text">BPS Master provides you the functionality of creating, viewing, updating and deleting departments. Departments will be used to segregate employees and machines according to their departments.</p>
+                        <a href="#" class="btn btn-primary">Register Department</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Employee Management</h5>
+                        <hr>
+                        <p class="card-text">BPS Master provides you the functionality of creating, viewing, updating and deleting employee details. Employees will have their respective roles and login credentials for signing into BPS Master.</p>
+                        <a href="#" class="btn btn-primary">Register Employee</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Component Management</h5>
+                        <hr>
+                        <p class="card-text">BPS Master provides you the functionality of creating, viewing, updating and deleting component or product details. All components will have their own respective IDs, types and LK Numbers.</p>
+                        <a href="#" class="btn btn-primary">Register Component</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Shift Management</h5>
+                        <hr>
+                        <p class="card-text">BPS Master provides you the functionality of creating, viewing, updating and deleting Employee Shifts. The Daily Operational Data will be stored according to employee short codes and dates.</p>
+                        <a href="#" class="btn btn-primary">Register Shift</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Operation Management</h5>
+                        <hr>
+                        <p class="card-text">BPS Master provides you the functionality of creating, viewing, updating and deleting Operations. The Laser Production will be stored according to the Operations which are held in BOSCH.</p>
+                        <a href="#" class="btn btn-primary">Register Operation</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Machine Management</h5>
+                        <hr>
+                        <p class="card-text">BPS Master provides you the functionality of creating, viewing, updating and deleting Machine Details. The Machines will help us to understand the Production work held on each day.</p>
+                        <a href="#" class="btn btn-primary">Register Machine</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mt-4 mb-4">
+    </div>
+</main>
+{%endblock %}

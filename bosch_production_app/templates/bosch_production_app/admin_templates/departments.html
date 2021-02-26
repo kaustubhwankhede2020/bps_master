@@ -1,0 +1,66 @@
+{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Departments</li>
+        </ol>
+        <hr>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Register Departments</h5>
+                <hr>
+                <form method="POST" action="{% url 'register_departments' %}">
+                    {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
+                    <div class="alert alert-success mb-3">{{message}}</div>
+                    {% endif %} {% endfor %} {% endif %}
+                    <div class="mb-3">
+                        <label for="department_name" class="form-label">Department Name</label>
+                        <input type="text" class="form-control" id="department_name" name="department_name" autofocus required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="department_desc" class="form-label">Department Description</label>
+                        <input type="text" class="form-control" id="department_desc" name="department_desc" required>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Register Department</button>
+                    <button type="reset" class="btn btn-secondary">Clear Entries</button>
+                </form>
+            </div>
+        </div>
+        <div class="card mt-4 shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">Departments at <strong>Bosch</strong></h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Department Name</th>
+                            <th scope="col">Department Description</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for department in departments %}
+                        <tr>
+                            <th scope="row">{{ department.main_id }}</th>
+                            <td>{{ department.department_name }}</td>
+                            <td style='width: 32rem'>{{ department.department_desc }}</td>
+                            <td>{{ department.created_at }}</td>
+                            <td>
+                                <a href="/edit_departments/{{ department.main_id }}" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                </a>
+                                <a href="/delete_departments/{{ department.main_id }}" style="text-decoration: none;">
+                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

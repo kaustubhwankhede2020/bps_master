@@ -1,11 +1,17 @@
 from django.contrib import admin
 from django.urls import path, include
-from . import views, admin_views
+from . import views, admin_views, operator_views
 
 urlpatterns = [
     path('', views.render_login, name="login"),
+    path('signup', views.render_signup, name="signup"),
+    path('perform_login', views.perform_login, name="perform_login"),
+    path('perform_logout', views.perform_logout, name="perform_logout"),
+    path('perform_signup', views.perform_signup, name="perform_signup"),
     path('admin_home/', admin_views.render_admin_home, name="admin_home"),
+    path('operator_home/', operator_views.render_operator_home, name="operator_home"),
     path('dashboard/', admin_views.render_dashboard, name="dashboard"),
+    path('operator_dashboard/', operator_views.render_operator_dashboard, name="operator_dashboard"),
     path('departments/', admin_views.render_departments, name="departments"),
     path('register_departments', admin_views.register_departments, name="register_departments"),
     path('edit_departments/<str:main_id>', admin_views.render_edit_departments, name="edit_departments"),
@@ -44,4 +50,11 @@ urlpatterns = [
     path('edit_laser_production', admin_views.edit_laser_production, name= 'edit_laser_production'),
     path('delete_laser_production/<str:main_id>', admin_views.render_delete_laser_production,name="delete_laser_production"),
     path('delete_laser_production', admin_views.delete_laser_production, name= 'delete_laser_production'),
+    path('production_entry/', operator_views.render_production_entry, name="production_entry"),
+    path('operator_laser_production/', operator_views.render_laser_production, name="operator_laser_production"),
+    path('operator_internal_grinding/', operator_views.render_internal_grinding, name="operator_internal_grinding"),
+    path('operator_external_grinding/', operator_views.render_external_grinding, name="operator_external_grinding"),
+    path('operator_chamfer_grinding/', operator_views.render_chamfer_grinding, name="operator_chamfer_grinding"),
+    path('operator_aqueous_cleaning/', operator_views.render_aqueous_cleaning, name="operator_aqueous_cleaning"),
+    path('operator_profile/', operator_views.render_operator_profile, name="operator_profile"),
 ]

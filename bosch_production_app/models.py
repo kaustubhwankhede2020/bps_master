@@ -8,6 +8,7 @@ from datetime import datetime
 class CustomUser(AbstractUser):
     user_type_data = ((1, "Admin"),(2, "Manager"),(3, "Expert"),(4, "Operator"))
     user_type = models.CharField(choices=user_type_data, default=1, max_length=10)
+    employee_number = models.CharField(max_length=20, default="")
 
 class Admin(models.Model):
     main_id = models.AutoField(primary_key=True)

@@ -1,0 +1,157 @@
+{% extends 'bosch_production_app/operator_templates/base.html' %}
+{% load static %}
+{% block main_content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4 mt-4">
+            <li class="breadcrumb-item">Bosch Production System | Profile</li>
+        </ol>
+        <hr>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Who am I : <strong>Operator</strong></li>
+                        <li class="list-group-item">Department : <strong>{{ user.operator.department }}</strong></li>
+                        <li class="list-group-item">Grade : <strong>G-10</strong></li>
+                        <li class="list-group-item">Ratings : ⭐⭐⭐⭐</li>
+                    </ul>
+                    <div class="card-body">
+                        <button class="btn btn-primary" type="submit">Share your Grade and Rankings</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h5 class="card-title">Update Your Profile</h5>
+                        <hr>
+                        <form>
+                            {% csrf_token %}
+                            {% if messages %}
+                            {% for message in messages %}
+                            {% if message.tags == "success" %}
+                            <div class="alert alert-success" role="alert">
+                                <strong>Well Done ! </strong>{{ message }}
+                            </div>
+                            {% else %}
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Error ! </strong>{{ message }}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="firstname">Firstname</label>
+                                        <input class="form-control" id="firstname" type="text"
+                                            placeholder="Insert Firstname" name="firstname" autofocus required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="lastname">Lastname</label>
+                                        <input class="form-control" id="lastname" type="text"
+                                            placeholder="Insert Lastname" name="lastname" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="employee_number">Employee Number</label>
+                                        <input class="form-control" id="employee_number" type="text"
+                                            placeholder="Insert Employee Number" name="employee_number" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="username">Username</label>
+                                        <input class="form-control" id="username" type="text"
+                                            placeholder="Insert Username" name="username" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="email">Email Address</label>
+                                        <input class="form-control" id="email" type="email"
+                                            placeholder="Insert Email Address" name="email" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="mobile_number">Mobile Number</label>
+                                        <input class="form-control" id="mobile_number" type="text"
+                                            placeholder="Insert Mobile Number" name="mobile_number" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                <button class="btn btn-success" type="submit">Update Profile</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h5 class="card-title">Update Your Password</h5>
+                        <hr>
+                        <form>
+                            {% csrf_token %}
+                            {% if messages %}
+                            {% for message in messages %}
+                            {% if message.tags == "success" %}
+                            <div class="alert alert-success" role="alert">
+                                <strong>Well Done ! </strong>{{ message }}
+                            </div>
+                            {% else %}
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Error ! </strong>{{ message }}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="old_password">Old Password</label>
+                                        <input class="form-control" id="old_password" type="password"
+                                            placeholder="Insert Old Password" name="old_password" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1" for="new_password">New Password</label>
+                                        <input class="form-control" id="new_password" type="password"
+                                            placeholder="Insert New Password" name="new_password" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1" for="confirm_password">Password
+                                            Confirmation</label>
+                                        <input class="form-control" id="confirm_password" type="password"
+                                            placeholder="Insert Password Confirmation" name="confirm_password"
+                                            required />
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                <button class="btn btn-danger" type="submit">Update Password</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock %}

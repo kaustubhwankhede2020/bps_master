@@ -1,0 +1,45 @@
+<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <div class="sb-sidenav-menu">
+        <div class="nav">
+            <div class="sb-sidenav-menu-heading">Accessories</div>
+            <a class="nav-link" href="{% url 'operator_home' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                Home
+            </a>
+            <a class="nav-link" href="{% url 'operator_dashboard' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                Dashboard
+            </a>
+            <div class="sb-sidenav-menu-heading">Daily Tasks</div>
+            <a class="nav-link" href="{% url 'production_entry' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-adjust"></i></div>
+                Production Entry
+            </a>
+            <div class="sb-sidenav-menu-heading">Reports</div>
+            <a class="nav-link" href="{% url 'operator_laser_production' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-adjust"></i></div>
+                Laser Production
+            </a>
+            <a class="nav-link" href="{% url 'operator_internal_grinding' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-adjust"></i></div>
+                Internal Grinding
+            </a>
+            <a class="nav-link" href="{% url 'operator_external_grinding' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-adjust"></i></div>
+                External Grinding
+            </a>
+            <a class="nav-link" href="{% url 'operator_chamfer_grinding' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-adjust"></i></div>
+                Chamfer Grinding
+            </a>
+            <a class="nav-link" href="{% url 'operator_aqueous_cleaning' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-adjust"></i></div>
+                Aqueous Cleaning
+            </a>
+        </div>
+    </div>
+    <div class="sb-sidenav-footer">
+        <div class="small">Logged in as:</div>
+        BPS Master Operator Panel
+    </div>
+</nav>

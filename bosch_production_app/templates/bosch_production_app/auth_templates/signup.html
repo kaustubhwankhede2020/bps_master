@@ -1,0 +1,153 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Bosch Production System | Sign Up</title>
+    <link href="{% static 'bosch_production_app/css/styles.css' %}" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-primary">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="card shadow-lg border-0 rounded-lg mt-4">
+                                <div class="card-header">
+                                    <h5 class="text-center font-weight-light">Sign Up to <strong>Bosch Production
+                                            System</strong></h5>
+                                </div>
+                                <div class="card-body">
+                                    <form method="POST" action="{% url 'perform_signup' %}">
+                                        {% csrf_token %}
+                                        {% if messages %}
+                                        {% for message in messages %}
+                                        {% if message.tags == "success" %}
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Well Done ! </strong>{{ message }}
+                                          </div>
+                                        {% else %}
+                                        <div class="alert alert-danger" role="alert">
+                                            <strong>Error ! </strong>{{ message }}
+                                          </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endif %}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1" for="firstname">Firstname</label>
+                                                    <input class="form-control" id="firstname" type="text"
+                                                        placeholder="Insert Firstname" name="firstname" autofocus
+                                                        required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1" for="lastname">Lastname</label>
+                                                    <input class="form-control" id="lastname" type="text"
+                                                        placeholder="Insert Lastname" name="lastname" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1" for="employee_number">Employee Number</label>
+                                                    <input class="form-control" id="employee_number" type="text"
+                                                        placeholder="Insert Employee Number" name="employee_number"
+                                                        required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1" for="username">Username</label>
+                                                    <input class="form-control" id="username" type="text"
+                                                        placeholder="Insert Username" name="username" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1" for="department">Department</label>
+                                                    <select id="department_id" class="form-control" name="department" required>
+                                                        {% for department in departments %}
+                                                        <option value="{{ department.main_id }}">{{ department.department_name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1" for="email">Email Address</label>
+                                                    <input class="form-control" id="email" type="email"
+                                                        placeholder="Insert Email Address" name="email" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1" for="password">Password</label>
+                                                    <input class="form-control" id="password" type="password"
+                                                        placeholder="Insert Password" name="password" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="mb-1" for="confirm_password">Password
+                                                        Confirmation</label>
+                                                    <input class="form-control" id="confirm_password" type="password"
+                                                        placeholder="Insert Password Confirmation"
+                                                        name="confirm_password" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div
+                                            class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                            <button class="btn btn-primary" type="submit">Register as Employee</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <div class="small">Already have an account on Bosch Production System ?
+                                        <a href="{% url 'login' %}">Login !</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; <strong>Bosch Production System</strong> Version 1.0.0
+                        </div>
+                        <div>
+                            Powered By <a href="#"><strong>Kwinfosys</strong></a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'bosch_production_app/js/scripts.js' %}"></script>
+</body>
+
+</html>

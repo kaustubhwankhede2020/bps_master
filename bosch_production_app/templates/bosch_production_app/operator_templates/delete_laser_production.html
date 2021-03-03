@@ -1,15 +1,15 @@
-{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+{% extends 'bosch_production_app/operator_templates/base.html' %} {% block main_content %}
 <main>
     <div class="container-fluid">
         <ol class="breadcrumb mb-4 mt-4">
-            <li class="breadcrumb-item">Bosch Production System | Edit Laser Production</li>
+            <li class="breadcrumb-item">Bosch Production System | Delete Laser Production</li>
         </ol>
         <hr>
         <div class="card mt-4 shadow-lg">
             <div class="card-body">
-                <h5 class="card-title">Update Laser Production : {{ laser_production.machine_id }}</h5>
+                <h5 class="card-title">Delete Laser Production : {{ laser_production.machine_id }}</h5>
                 <hr>
-                <form method="POST" action="{% url 'edit_laser_production' %}">
+                <form method="POST" action="{% url 'operator_delete_laser_production' %}">
                     {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
                     <div class="alert alert-success mb-3">{{message}}</div>
                     {% endif %} {% endfor %} {% endif %}
@@ -19,7 +19,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="employee_id" class="form-label">Employee Number</label>
-                        <input type="text" class="form-control" id="employee_id" name="employee_id" value="{{ laser_production.employee_id }}" readonly required>
+                        <input type="text" class="form-control" id="employee_id" name="employee_id" value="{{ laser_production.employee_id }}" required readonly>
                     </div>
                     <div class="mb-3">
                         <label for="shift_id" class="form-label">Shift Code</label>
@@ -35,14 +35,17 @@
                     </div>
                     <div class="mb-3">
                         <label for="component_lot_number" class="form-label">Component Lot Number</label>
-                        <input type="text" class="form-control" id="component_lot_number" name="component_lot_number" value="{{ laser_production.component_lot_number }}" required>
+                        <input type="text" class="form-control" id="component_lot_number" name="component_lot_number" value="{{ laser_production.component_lot_number }}" required readonly>
                     </div>
                     <div class="mb-3">
                         <label for="component_quantity" class="form-label">Component Quantity</label>
-                        <input type="text" class="form-control" id="component_quantity" name="component_quantity" value="{{ laser_production.component_quantity }}" required>
+                        <input type="text" class="form-control" id="component_quantity" name="component_quantity" value="{{ laser_production.component_quantity }}" required readonly>
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-warning">Update Laser Production</button>
+                    <button type="submit" class="btn btn-danger">Delete Laser Production</button>
+                    <a href="{% url 'operator_laser_production' %}" style="text-decoration: none;">
+                        <button type="button" class="btn btn-success">Cancel</button>
+                    </a>
                 </form>
             </div>
         </div>

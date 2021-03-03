@@ -1,4 +1,4 @@
-{% extends 'bosch_production_app/admin_templates/base.html' %} {% block main_content %}
+{% extends 'bosch_production_app/operator_templates/base.html' %} {% block main_content %}
 <main>
     <div class="container-fluid">
         <ol class="breadcrumb mb-4 mt-4">
@@ -9,7 +9,7 @@
             <div class="card-body">
                 <h5 class="card-title">Update Laser Production : {{ laser_production.machine_id }}</h5>
                 <hr>
-                <form method="POST" action="{% url 'edit_laser_production' %}">
+                <form method="POST" action="{% url 'operator_edit_laser_production' %}">
                     {% csrf_token %} {% if messages %} {% for message in messages %} {% if message.tags == "success" %}
                     <div class="alert alert-success mb-3">{{message}}</div>
                     {% endif %} {% endfor %} {% endif %}

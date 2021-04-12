@@ -17,7 +17,17 @@ def render_dashboard(request):
     if request.user.is_anonymous:
         return redirect("/")
     else:
-        return render(request, 'bosch_production_app/admin_templates/dashboard.html')
+        departments = models.Department.objects.all().count()
+        employees = models.Operator.objects.all().count()
+        components = models.Components.objects.all().count()
+        machines = models.Machines.objects.all().count()
+        params = {
+            "departments": departments,
+            "employees": employees,
+            "components": components,
+            "machines": machines
+        }
+        return render(request, 'bosch_production_app/admin_templates/dashboard.html', params)
 
 def render_departments(request):
     if request.user.is_anonymous:

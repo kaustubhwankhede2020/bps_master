@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from . import models
 from datetime import datetime
@@ -9,17 +9,25 @@ from django.urls import reverse
 
 # Creating a rendering function which will render the admin home page for BPS Master
 def render_admin_home(request):
+    if request.user.is_anonymous:
+        return redirect("/")
     return render(request, 'bosch_production_app/admin_templates/admin_home.html')
 
 def render_dashboard(request):
-    return render(request, 'bosch_production_app/admin_templates/dashboard.html')
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        return render(request, 'bosch_production_app/admin_templates/dashboard.html')
 
 def render_departments(request):
-    department_objs = models.Department.objects.all()
-    params = {
-        'departments':department_objs
-    }
-    return render(request, 'bosch_production_app/admin_templates/departments.html', params)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        department_objs = models.Department.objects.all()
+        params = {
+            'departments':department_objs
+        }
+        return render(request, 'bosch_production_app/admin_templates/departments.html', params)
 
 def register_departments(request):
     if request.method != "POST":
@@ -33,10 +41,13 @@ def register_departments(request):
         return HttpResponseRedirect(reverse('departments'))
 
 def render_edit_departments(request, main_id):
-    department_obj = models.Department.objects.get(main_id = main_id)
-    context = {'departments' : department_obj, 'department_id' : main_id}
-    print(department_obj)
-    return render(request,"bosch_production_app/admin_templates/edit_departments.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        department_obj = models.Department.objects.get(main_id = main_id)
+        context = {'departments' : department_obj, 'department_id' : main_id}
+        print(department_obj)
+        return render(request,"bosch_production_app/admin_templates/edit_departments.html",context)
 
 def edit_departments(request):
     if request.method!="POST":
@@ -59,10 +70,13 @@ def edit_departments(request):
             return HttpResponseRedirect("/")
 
 def render_delete_departments(request, main_id):
-    department_obj = models.Department.objects.get(main_id = main_id)
-    context = {'departments' : department_obj, 'department_id' : main_id}
-    print(department_obj)
-    return render(request,"bosch_production_app/admin_templates/delete_departments.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        department_obj = models.Department.objects.get(main_id = main_id)
+        context = {'departments' : department_obj, 'department_id' : main_id}
+        print(department_obj)
+        return render(request,"bosch_production_app/admin_templates/delete_departments.html",context)
 
 def delete_departments(request):
     if request.method!="POST":
@@ -79,11 +93,14 @@ def delete_departments(request):
             return HttpResponseRedirect(reverse("departments"))
 
 def render_employees(request):
-    department_objs = models.Department.objects.all()
-    params = {
-        'departments': department_objs
-    }
-    return render(request, 'bosch_production_app/admin_templates/employees.html', params)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        department_objs = models.Department.objects.all()
+        params = {
+            'departments': department_objs
+        }
+        return render(request, 'bosch_production_app/admin_templates/employees.html', params)
 
 def register_employees(request):
     firstname = request.POST.get("firstname")
@@ -122,11 +139,14 @@ def register_employees(request):
         return HttpResponseRedirect(reverse("employees"))
 
 def render_components(request):
-    component_objs = models.Components.objects.all()
-    params = {
-        'components':component_objs
-    }
-    return render(request, 'bosch_production_app/admin_templates/components.html', params)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        component_objs = models.Components.objects.all()
+        params = {
+            'components':component_objs
+        }
+        return render(request, 'bosch_production_app/admin_templates/components.html', params)
 
 def register_components(request):
     if request.method != 'POST':
@@ -140,10 +160,13 @@ def register_components(request):
         return HttpResponseRedirect(reverse('components'))
 
 def render_edit_components(request, main_id):
-    component_obj = models.Components.objects.get(main_id = main_id)
-    context = {'components' : component_obj, 'component_id' : main_id}
-    print(component_obj)
-    return render(request,"bosch_production_app/admin_templates/edit_components.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        component_obj = models.Components.objects.get(main_id = main_id)
+        context = {'components' : component_obj, 'component_id' : main_id}
+        print(component_obj)
+        return render(request,"bosch_production_app/admin_templates/edit_components.html",context)
 
 def edit_components(request):
     if request.method!="POST":
@@ -166,10 +189,13 @@ def edit_components(request):
             return HttpResponseRedirect("/")
 
 def render_delete_components(request, main_id):
-    component_obj = models.Components.objects.get(main_id = main_id)
-    context = {'components' : component_obj, 'component_id' : main_id}
-    print(component_obj)
-    return render(request,"bosch_production_app/admin_templates/delete_components.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        component_obj = models.Components.objects.get(main_id = main_id)
+        context = {'components' : component_obj, 'component_id' : main_id}
+        print(component_obj)
+        return render(request,"bosch_production_app/admin_templates/delete_components.html",context)
 
 def delete_components(request):
     if request.method!="POST":
@@ -186,11 +212,14 @@ def delete_components(request):
             return HttpResponseRedirect(reverse("components"))
 
 def render_shifts(request):
-    shift_objs = models.Shifts.objects.all()
-    params = {
-        'shifts':shift_objs
-    }
-    return render(request, 'bosch_production_app/admin_templates/shifts.html', params)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        shift_objs = models.Shifts.objects.all()
+        params = {
+            'shifts':shift_objs
+        }
+        return render(request, 'bosch_production_app/admin_templates/shifts.html', params)
 
 def register_shifts(request):
     if request.method != 'POST':
@@ -204,10 +233,13 @@ def register_shifts(request):
         return HttpResponseRedirect(reverse('shifts'))
 
 def render_edit_shifts(request, main_id):
-    shift_obj = models.Shifts.objects.get(main_id = main_id)
-    context = {'shifts' : shift_obj, 'shift_id' : main_id}
-    print(shift_obj)
-    return render(request,"bosch_production_app/admin_templates/edit_shifts.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        shift_obj = models.Shifts.objects.get(main_id = main_id)
+        context = {'shifts' : shift_obj, 'shift_id' : main_id}
+        print(shift_obj)
+        return render(request,"bosch_production_app/admin_templates/edit_shifts.html",context)
 
 def edit_shifts(request):
     if request.method!="POST":
@@ -230,10 +262,13 @@ def edit_shifts(request):
             return HttpResponseRedirect("/")
 
 def render_delete_shifts(request, main_id):
-    shift_obj = models.Shifts.objects.get(main_id = main_id)
-    context = {'shifts' : shift_obj, 'shift_id' : main_id}
-    print(shift_obj)
-    return render(request,"bosch_production_app/admin_templates/delete_shifts.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        shift_obj = models.Shifts.objects.get(main_id = main_id)
+        context = {'shifts' : shift_obj, 'shift_id' : main_id}
+        print(shift_obj)
+        return render(request,"bosch_production_app/admin_templates/delete_shifts.html",context)
 
 def delete_shifts(request):
     if request.method!="POST":
@@ -250,11 +285,14 @@ def delete_shifts(request):
             return HttpResponseRedirect(reverse("shifts"))
 
 def render_operations(request):
-    operation_objs = models.Operations.objects.all()
-    params = {
-        'operations':operation_objs
-    }
-    return render(request, 'bosch_production_app/admin_templates/operations.html', params)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        operation_objs = models.Operations.objects.all()
+        params = {
+            'operations':operation_objs
+        }
+        return render(request, 'bosch_production_app/admin_templates/operations.html', params)
 
 def register_operations(request):
     if request.method != "POST":
@@ -267,10 +305,13 @@ def register_operations(request):
         return HttpResponseRedirect(reverse('operations'))
 
 def render_edit_operations(request, main_id):
-    operation_obj = models.Operations.objects.get(main_id = main_id)
-    context = {'operations' : operation_obj, 'operation_id' : main_id}
-    print(operation_obj)
-    return render(request,"bosch_production_app/admin_templates/edit_operations.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        operation_obj = models.Operations.objects.get(main_id = main_id)
+        context = {'operations' : operation_obj, 'operation_id' : main_id}
+        print(operation_obj)
+        return render(request,"bosch_production_app/admin_templates/edit_operations.html",context)
 
 def edit_operations(request):
     if request.method!="POST":
@@ -291,10 +332,13 @@ def edit_operations(request):
             return HttpResponseRedirect("/")
 
 def render_delete_operations(request, main_id):
-    operation_obj = models.Operations.objects.get(main_id = main_id)
-    context = {'operations' : operation_obj, 'operation_id' : main_id}
-    print(operation_obj)
-    return render(request,"bosch_production_app/admin_templates/delete_operations.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        operation_obj = models.Operations.objects.get(main_id = main_id)
+        context = {'operations' : operation_obj, 'operation_id' : main_id}
+        print(operation_obj)
+        return render(request,"bosch_production_app/admin_templates/delete_operations.html",context)
 
 def delete_operations(request):
     if request.method!="POST":
@@ -311,13 +355,16 @@ def delete_operations(request):
             return HttpResponseRedirect(reverse("operations"))
 
 def render_machines(request):
-    machine_objs = models.Machines.objects.all()
-    operation_objs = models.Operations.objects.all()
-    params = {
-        'machines': machine_objs,
-        'operations': operation_objs
-    }
-    return render(request, 'bosch_production_app/admin_templates/machines.html', params)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        machine_objs = models.Machines.objects.all()
+        operation_objs = models.Operations.objects.all()
+        params = {
+            'machines': machine_objs,
+            'operations': operation_objs
+        }
+        return render(request, 'bosch_production_app/admin_templates/machines.html', params)
 
 def register_machines(request):
     if request.method != "POST":
@@ -333,10 +380,13 @@ def register_machines(request):
         return HttpResponseRedirect(reverse('machines'))
 
 def render_edit_machines(request, main_id):
-    machine_obj = models.Machines.objects.get(main_id = main_id)
-    context = {'machines' : machine_obj, 'machine_id' : main_id}
-    print(machine_obj)
-    return render(request,"bosch_production_app/admin_templates/edit_machines.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        machine_obj = models.Machines.objects.get(main_id = main_id)
+        context = {'machines' : machine_obj, 'machine_id' : main_id}
+        print(machine_obj)
+        return render(request,"bosch_production_app/admin_templates/edit_machines.html",context)
 
 def edit_machines(request):
     if request.method!="POST":
@@ -362,10 +412,13 @@ def edit_machines(request):
             return HttpResponseRedirect("/")
 
 def render_delete_machines(request, main_id):
-    machine_obj = models.Machines.objects.get(main_id = main_id)
-    context = {'machines' : machine_obj, 'machine_id' : main_id}
-    print(machine_obj)
-    return render(request,"bosch_production_app/admin_templates/delete_machines.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        machine_obj = models.Machines.objects.get(main_id = main_id)
+        context = {'machines' : machine_obj, 'machine_id' : main_id}
+        print(machine_obj)
+        return render(request,"bosch_production_app/admin_templates/delete_machines.html",context)
 
 def delete_machines(request):
     if request.method!="POST":
@@ -380,84 +433,3 @@ def delete_machines(request):
         except:
             messages.error(request,"Failed to Delete Machine !")
             return HttpResponseRedirect(reverse("machines"))
-
-def render_laser_production(request):
-    shift_objs = models.Shifts.objects.all()
-    machine_objs = models.Machines.objects.all()
-    component_objs = models.Components.objects.all()
-    laser_production_objs = models.Laser_production.objects.all()
-    params = {
-        'shifts' : shift_objs,
-        'machines' : machine_objs,
-        'components' : component_objs,
-        'laser_productions' : laser_production_objs
-    }
-    return render(request, 'bosch_production_app/admin_templates/laser_production.html', params)
-
-def register_laser_production(request):
-    if request.method != "POST":
-        return HttpResponse("Method not Allowed")
-    else:
-        Laser_production_obj = models.Laser_production.objects.create(employee_id = request.POST.get("employee_id"), shift_id = models.Shifts.objects.get(main_id = request.POST.get("shift_code")), machine_id = models.Machines.objects.get(main_id=request.POST.get("machine_number")), component_id = models.Components.objects.get(main_id = request.POST.get("component_type")), component_lot_number = request.POST.get("component_lot_number"), component_quantity = request.POST.get("component_quantity"), created_at=datetime.now(), updated_at=datetime.now())
-        Laser_production_obj.save()
-        messages.success(request, "Laser Production Registered Sucessfully !")
-        return HttpResponseRedirect(reverse('laser_production'))
-
-def render_edit_laser_production(request, main_id):
-    laser_production_obj = models.Laser_production.objects.get(main_id = main_id)
-    context = {'laser_production' : laser_production_obj, 'laser_production_id' : main_id}
-    print(laser_production_obj)
-    return render(request,"bosch_production_app/admin_templates/edit_laser_production.html",context)
-
-def edit_laser_production(request):
-    if request.method!="POST":
-        return HttpResponse("<h2>Method Not Allowed</h2>")
-    else:
-        main_id = request.POST.get('main_id')
-        employee_id = request.POST.get('employee_id')
-        shift_id = request.POST.get('shift_id')
-        machine_id = request.POST.get('machine_id')
-        component_id = request.POST.get('component_id')
-        component_lot_number = request.POST.get('component_lot_number')
-        component_quantity = request.POST.get('component_quantity')
-        try:
-            print("Laser Production Updation Initiated")
-            laser_production_obj = models.Laser_production.objects.get(main_id=main_id)
-            print(laser_production_obj)
-            shift_obj = models.Shifts.objects.get(shift_code=shift_id)
-            machine_obj = models.Machines.objects.get(machine_number=machine_id)
-            component_obj = models.Components.objects.get(component_type=component_id)
-            laser_production_obj.employee_id = employee_id
-            laser_production_obj.shift_id = shift_obj
-            laser_production_obj.machine_id = machine_obj
-            laser_production_obj.component_id = component_obj
-            laser_production_obj.component_lot_number = component_lot_number
-            laser_production_obj.component_quantity = component_quantity
-            laser_production_obj.created_at = datetime.now()
-            laser_production_obj.updated_at = datetime.now()
-            laser_production_obj.save()
-            messages.success(request,"Successfully Updated Laser Production !")
-            return HttpResponseRedirect(reverse("laser_production"))
-        except:
-            messages.error(request,"Failed to Update Laser Production")
-            return HttpResponseRedirect(reverse("laser_production"))
-
-def render_delete_laser_production(request, main_id):
-    laser_production_obj = models.Laser_production.objects.get(main_id = main_id)
-    context = {'laser_production' : laser_production_obj, 'laser_production_id' : main_id}
-    print(laser_production_obj)
-    return render(request,"bosch_production_app/admin_templates/delete_laser_production.html",context)
-
-def delete_laser_production(request):
-    if request.method!="POST":
-        return HttpResponse("<h2>Method Not Allowed</h2>")
-    else:
-        main_id = request.POST.get('main_id')
-        try:
-            laser_production_obj = models.Laser_production.objects.get(main_id=main_id)
-            laser_production_obj.delete()
-            messages.success(request,"Successfully Deleted Laser Production !")
-            return HttpResponseRedirect(reverse("laser_production"))
-        except:
-            messages.error(request,"Failed to Delete Laser Production !")
-            return HttpResponseRedirect(reverse("laser_production"))

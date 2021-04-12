@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from . import models
 from datetime import datetime
@@ -9,23 +9,30 @@ from .models import Machines, Components
 # Create your views here.
 
 def render_operator_home(request):
+    if request.user.is_anonymous:
+        return redirect("/")
     return render(request, 'bosch_production_app/operator_templates/operator_home.html')
 
 def render_operator_dashboard(request):
+    if request.user.is_anonymous:
+        return redirect("/")
     return render(request, 'bosch_production_app/operator_templates/operator_dashboard.html')
 
 def render_laser_production(request):
-    shift_objs = models.Shifts.objects.all()
-    machine_objs = models.Machines.objects.all()
-    component_objs = models.Components.objects.all()
-    laser_production_objs = models.Laser_production.objects.all()
-    params = {
-        'shifts' : shift_objs,
-        'machines' : machine_objs,
-        'components' : component_objs,
-        'laser_productions' : laser_production_objs
-    }
-    return render(request, 'bosch_production_app/operator_templates/laser_production.html', params)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        shift_objs = models.Shifts.objects.all()
+        machine_objs = models.Machines.objects.all()
+        component_objs = models.Components.objects.all()
+        laser_production_objs = models.Laser_production.objects.all()
+        params = {
+            'shifts' : shift_objs,
+            'machines' : machine_objs,
+            'components' : component_objs,
+            'laser_productions' : laser_production_objs
+        }
+        return render(request, 'bosch_production_app/operator_templates/laser_production.html', params)
 
 def register_laser_production(request):
     if request.method != "POST":
@@ -37,10 +44,13 @@ def register_laser_production(request):
         return HttpResponseRedirect(reverse('operator_laser_production'))
 
 def render_edit_laser_production(request, main_id):
-    laser_production_obj = models.Laser_production.objects.get(main_id = main_id)
-    context = {'laser_production' : laser_production_obj, 'laser_production_id' : main_id}
-    print(laser_production_obj)
-    return render(request,"bosch_production_app/operator_templates/edit_laser_production.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        laser_production_obj = models.Laser_production.objects.get(main_id = main_id)
+        context = {'laser_production' : laser_production_obj, 'laser_production_id' : main_id}
+        print(laser_production_obj)
+        return render(request,"bosch_production_app/operator_templates/edit_laser_production.html",context)
 
 def edit_laser_production(request):
     if request.method!="POST":
@@ -76,10 +86,13 @@ def edit_laser_production(request):
             return HttpResponseRedirect(reverse("operator_laser_production"))
 
 def render_delete_laser_production(request, main_id):
-    laser_production_obj = models.Laser_production.objects.get(main_id = main_id)
-    context = {'laser_production' : laser_production_obj, 'laser_production_id' : main_id}
-    print(laser_production_obj)
-    return render(request,"bosch_production_app/operator_templates/delete_laser_production.html",context)
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        laser_production_obj = models.Laser_production.objects.get(main_id = main_id)
+        context = {'laser_production' : laser_production_obj, 'laser_production_id' : main_id}
+        print(laser_production_obj)
+        return render(request,"bosch_production_app/operator_templates/delete_laser_production.html",context)
 
 def delete_laser_production(request):
     if request.method!="POST":
@@ -96,16 +109,31 @@ def delete_laser_production(request):
             return HttpResponseRedirect(reverse("operator_laser_production"))
 
 def render_internal_grinding(request):
-    return render(request, 'bosch_production_app/operator_templates/internal_grinding.html')
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        return render(request, 'bosch_production_app/operator_templates/internal_grinding.html')
 
 def render_external_grinding(request):
-    return render(request, 'bosch_production_app/operator_templates/external_grinding.html')
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        return render(request, 'bosch_production_app/operator_templates/external_grinding.html')
 
 def render_chamfer_grinding(request):
-    return render(request, 'bosch_production_app/operator_templates/chamfer_grinding.html')
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        return render(request, 'bosch_production_app/operator_templates/chamfer_grinding.html')
 
 def render_aqueous_cleaning(request):
-    return render(request, 'bosch_production_app/operator_templates/aqueous_cleaning.html')
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        return render(request, 'bosch_production_app/operator_templates/aqueous_cleaning.html')
 
 def render_operator_profile(request):
-    return render(request, 'bosch_production_app/operator_templates/operator_profile.html')
+    if request.user.is_anonymous:
+        return redirect("/")
+    else:
+        return render(request, 'bosch_production_app/operator_templates/operator_profile.html')
